@@ -28,8 +28,7 @@ public class JaxbParserTest {
 
     @Test
     public void testCity() throws Exception {
-        JAXBElement<CityType> cityElement = JAXB_PARSER.unmarshal(
-                Resources.getResource("city.xml").openStream());
+        JAXBElement<CityType> cityElement = JAXB_PARSER.unmarshal(Resources.getResource("city.xml").openStream());
         CityType city = cityElement.getValue();
         JAXBElement<CityType> cityElement2 =
                 new JAXBElement<>(new QName("http://javaops.ru", "City"), CityType.class, city);

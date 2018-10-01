@@ -19,30 +19,12 @@ import javax.xml.bind.annotation.XmlType;
  * &lt;complexType>
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;all>
- *         &lt;element name="Cities">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence maxOccurs="unbounded">
- *                   &lt;element ref="{http://javaops.ru}City"/>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *         &lt;element name="Users">
- *           &lt;complexType>
- *             &lt;complexContent>
- *               &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *                 &lt;sequence maxOccurs="unbounded" minOccurs="0">
- *                   &lt;element ref="{http://javaops.ru}User"/>
- *                 &lt;/sequence>
- *               &lt;/restriction>
- *             &lt;/complexContent>
- *           &lt;/complexType>
- *         &lt;/element>
- *       &lt;/all>
+ *       &lt;sequence>
+ *         &lt;element ref="{http://javaops.ru}Project" maxOccurs="unbounded"/>
+ *         &lt;element ref="{http://javaops.ru}Group" maxOccurs="unbounded"/>
+ *         &lt;element ref="{http://javaops.ru}City" maxOccurs="unbounded"/>
+ *         &lt;element ref="{http://javaops.ru}User" maxOccurs="unbounded"/>
+ *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -52,182 +34,137 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-
+    "project",
+    "group",
+    "city",
+    "user"
 })
 @XmlRootElement(name = "Payload", namespace = "http://javaops.ru")
 public class Payload {
 
-    @XmlElement(name = "Cities", namespace = "http://javaops.ru", required = true)
-    protected Payload.Cities cities;
-    @XmlElement(name = "Users", namespace = "http://javaops.ru", required = true)
-    protected Payload.Users users;
+    @XmlElement(name = "Project", namespace = "http://javaops.ru", required = true)
+    protected List<Project> project;
+    @XmlElement(name = "Group", namespace = "http://javaops.ru", required = true)
+    protected List<Group> group;
+    @XmlElement(name = "City", namespace = "http://javaops.ru", required = true)
+    protected List<CityType> city;
+    @XmlElement(name = "User", namespace = "http://javaops.ru", required = true)
+    protected List<User> user;
 
     /**
-     * Gets the value of the cities property.
+     * Gets the value of the project property.
      * 
-     * @return
-     *     possible object is
-     *     {@link Payload.Cities }
-     *     
-     */
-    public Payload.Cities getCities() {
-        return cities;
-    }
-
-    /**
-     * Sets the value of the cities property.
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the project property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link Payload.Cities }
-     *     
-     */
-    public void setCities(Payload.Cities value) {
-        this.cities = value;
-    }
-
-    /**
-     * Gets the value of the users property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Payload.Users }
-     *     
-     */
-    public Payload.Users getUsers() {
-        return users;
-    }
-
-    /**
-     * Sets the value of the users property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Payload.Users }
-     *     
-     */
-    public void setUsers(Payload.Users value) {
-        this.users = value;
-    }
-
-
-    /**
-     * <p>Java class for anonymous complex type.
-     * 
-     * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     * <p>
+     * For example, to add a new item, do as follows:
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence maxOccurs="unbounded">
-     *         &lt;element ref="{http://javaops.ru}City"/>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     *    getProject().add(newItem);
      * </pre>
      * 
      * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link Project }
+     * 
+     * 
      */
-    @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "city"
-    })
-    public static class Cities {
-
-        @XmlElement(name = "City", namespace = "http://javaops.ru", required = true)
-        protected List<CityType> city;
-
-        /**
-         * Gets the value of the city property.
-         * 
-         * <p>
-         * This accessor method returns a reference to the live list,
-         * not a snapshot. Therefore any modification you make to the
-         * returned list will be present inside the JAXB object.
-         * This is why there is not a <CODE>set</CODE> method for the city property.
-         * 
-         * <p>
-         * For example, to add a new item, do as follows:
-         * <pre>
-         *    getCity().add(newItem);
-         * </pre>
-         * 
-         * 
-         * <p>
-         * Objects of the following type(s) are allowed in the list
-         * {@link CityType }
-         * 
-         * 
-         */
-        public List<CityType> getCity() {
-            if (city == null) {
-                city = new ArrayList<CityType>();
-            }
-            return this.city;
+    public List<Project> getProject() {
+        if (project == null) {
+            project = new ArrayList<Project>();
         }
-
+        return this.project;
     }
 
-
     /**
-     * <p>Java class for anonymous complex type.
+     * Gets the value of the group property.
      * 
-     * <p>The following schema fragment specifies the expected content contained within this class.
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the group property.
      * 
+     * <p>
+     * For example, to add a new item, do as follows:
      * <pre>
-     * &lt;complexType>
-     *   &lt;complexContent>
-     *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
-     *       &lt;sequence maxOccurs="unbounded" minOccurs="0">
-     *         &lt;element ref="{http://javaops.ru}User"/>
-     *       &lt;/sequence>
-     *     &lt;/restriction>
-     *   &lt;/complexContent>
-     * &lt;/complexType>
+     *    getGroup().add(newItem);
      * </pre>
      * 
      * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link Group }
+     * 
+     * 
      */
-    @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "user"
-    })
-    public static class Users {
-
-        @XmlElement(name = "User", namespace = "http://javaops.ru")
-        protected List<User> user;
-
-        /**
-         * Gets the value of the user property.
-         * 
-         * <p>
-         * This accessor method returns a reference to the live list,
-         * not a snapshot. Therefore any modification you make to the
-         * returned list will be present inside the JAXB object.
-         * This is why there is not a <CODE>set</CODE> method for the user property.
-         * 
-         * <p>
-         * For example, to add a new item, do as follows:
-         * <pre>
-         *    getUser().add(newItem);
-         * </pre>
-         * 
-         * 
-         * <p>
-         * Objects of the following type(s) are allowed in the list
-         * {@link User }
-         * 
-         * 
-         */
-        public List<User> getUser() {
-            if (user == null) {
-                user = new ArrayList<User>();
-            }
-            return this.user;
+    public List<Group> getGroup() {
+        if (group == null) {
+            group = new ArrayList<Group>();
         }
+        return this.group;
+    }
 
+    /**
+     * Gets the value of the city property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the city property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getCity().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link CityType }
+     * 
+     * 
+     */
+    public List<CityType> getCity() {
+        if (city == null) {
+            city = new ArrayList<CityType>();
+        }
+        return this.city;
+    }
+
+    /**
+     * Gets the value of the user property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the user property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getUser().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link User }
+     * 
+     * 
+     */
+    public List<User> getUser() {
+        if (user == null) {
+            user = new ArrayList<User>();
+        }
+        return this.user;
     }
 
 }

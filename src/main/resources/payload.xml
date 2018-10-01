@@ -1,0 +1,48 @@
+<Payload xmlns="http://javaops.ru">
+  <!--1 or more repetitions:-->
+  <Project>
+    <name>topjava</name>
+    <description>string</description>
+    <!--1 or more repetitions:-->
+    <Group>
+      <name>1</name>
+      <groupType>CURRENT</groupType>
+      <!--1 or more repetitions:-->
+      <User email="fullname2@email" flag="deleted" city="string2">
+        <fullName>fullname2</fullName>
+      </User>
+      <User email="fullname1@email" flag="deleted" city="string">
+        <fullName>fullname1</fullName>
+      </User>
+      <User email="fullname4@email" flag="deleted" city="string">
+        <fullName>fullname4</fullName>
+      </User>
+      <User email="fullname3@email" flag="deleted" city="string">
+        <fullName>fullname3</fullName>
+      </User>
+    </Group>
+    <Group>
+      <name>2</name>
+      <groupType>REGISTERING</groupType>
+      <User email="fullname3@email" flag="active" city="string">
+        <fullName>fullname3</fullName>
+      </User>
+    </Group>
+  </Project>
+  <!--1 or more repetitions:-->
+  <Group>
+    <name>1</name>
+    <groupType>CURRENT</groupType>
+    <!--1 or more repetitions:-->
+    <User email="string" flag="active" city="string">
+      <fullName>string</fullName>
+    </User>
+  </Group>
+  <!--1 or more repetitions:-->
+  <City id="string">string</City>
+  <City id="string2">string</City>
+  <!--1 or more repetitions:-->
+  <User email="string" flag="superuser" city="string">
+    <fullName>fullname</fullName>
+  </User>
+</Payload>
