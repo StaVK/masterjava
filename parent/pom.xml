@@ -16,6 +16,10 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
+    <modules>
+        <module>parent-web</module>
+    </modules>
+
     <build>
         <defaultGoal>install</defaultGoal>
         <plugins>
@@ -36,6 +40,7 @@
                     <argLine>-Dfile.encoding=UTF-8</argLine>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 

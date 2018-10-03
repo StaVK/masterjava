@@ -17,7 +17,7 @@ public class StaxStreamProcessorTest {
                 if (event == XMLEvent.START_ELEMENT) {
                     if ("City".equals(reader.getLocalName())) {
                         System.out.println(reader.getElementText());
-                    }
+                     }
                 }
             }
         }
