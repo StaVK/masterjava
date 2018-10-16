@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns="http://javaops.ru"
-           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:jxb="http://java.sun.com/xml/ns/javaee"
            targetNamespace="http://javaops.ru"
            elementFormDefault="qualified" attributeFormDefault="unqualified">
 
