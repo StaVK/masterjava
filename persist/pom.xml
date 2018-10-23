@@ -26,6 +26,7 @@
             <artifactId>jdbi</artifactId>
             <version>2.78</version>
         </dependency>
+
         <dependency>
             <groupId>com.bertoncelj.jdbi.entitymapper</groupId>
             <artifactId>jdbi-entity-mapper</artifactId>

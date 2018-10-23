@@ -32,3 +32,11 @@ CREATE TABLE user_group (
   group_id INTEGER NOT NULL REFERENCES groups (id),
   CONSTRAINT users_group_idx UNIQUE (user_id, group_id)
 );
+
+--changeset StaVK:1
+CREATE TABLE resultSendEmail (
+  id INTEGER PRIMARY KEY DEFAULT nextval('common_seq'),
+  fromUser TEXT NOT NULL,
+  toUser TEXT NOT NULL,
+  message TEXT NOT NULL
+);

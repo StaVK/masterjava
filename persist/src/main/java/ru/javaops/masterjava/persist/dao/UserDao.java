@@ -1,14 +1,16 @@
 package ru.javaops.masterjava.persist.dao;
 
 import com.bertoncelj.jdbi.entitymapper.EntityMapperFactory;
+import javafx.util.Pair;
 import one.util.streamex.IntStreamEx;
+
 import org.skife.jdbi.v2.sqlobject.*;
 import org.skife.jdbi.v2.sqlobject.customizers.BatchChunkSize;
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapperFactory;
 import ru.javaops.masterjava.persist.DBIProvider;
 import ru.javaops.masterjava.persist.model.User;
 
-import java.util.List;
+import java.util.*;
 
 @RegisterMapperFactory(EntityMapperFactory.class)
 public abstract class UserDao implements AbstractDao {
@@ -49,17 +51,19 @@ public abstract class UserDao implements AbstractDao {
     public abstract void clean();
 
     //    https://habrahabr.ru/post/264281/
+
     @SqlBatch("INSERT INTO users (id, full_name, email, flag, city_ref) VALUES (:id, :fullName, :email, CAST(:flag AS USER_FLAG), :cityRef)" +
             "ON CONFLICT DO NOTHING")
 //            "ON CONFLICT (email) DO UPDATE SET full_name=:fullName, flag=CAST(:flag AS USER_FLAG)")
     public abstract int[] insertBatch(@BindBean List<User> users, @BatchChunkSize int chunkSize);
 
-
-    public List<String> insertAndGetConflictEmails(List<User> users) {
+    public List<User> insertAndGetConflictEmails(List<User> users) {
         int[] result = insertBatch(users, users.size());
+
         return IntStreamEx.range(0, users.size())
                 .filter(i -> result[i] == 0)
-                .mapToObj(index -> users.get(index).getEmail())
+                .mapToObj(users::get)
                 .toList();
     }
+
 }

@@ -4,6 +4,8 @@ import com.bertoncelj.jdbi.entitymapper.Column;
 import lombok.*;
 import ru.javaops.masterjava.persist.model.type.UserFlag;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,6 +18,8 @@ public class User extends BaseEntity {
     private @NonNull UserFlag flag;
     @Column("city_ref")
     private @NonNull String cityRef;
+
+
 
     public User(Integer id, String fullName, String email, UserFlag flag, String cityRef) {
         this(fullName, email, flag, cityRef);
