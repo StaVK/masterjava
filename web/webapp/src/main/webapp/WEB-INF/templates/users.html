@@ -1,27 +1,43 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/png" href="favicon.ico"/>
     <title>Users</title>
 </head>
 <body>
-<table border="1" cellpadding="8" cellspacing="0">
-    <thead>
-    <tr>
-        <th>#</th>
-        <th>Full Name</th>
-        <th>Email</th>
-        <th>Flag</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!--/*@thymesVar id="users" type="java.util.List<ru.javaops.masterjava.persist.model.User>"*/-->
-    <tr th:each="user,iter: ${users}">
-        <td th:text="${iter.count}"></td>
-        <td th:text="${user.fullName}"></td>
-        <td th:utext="${user.email}"></td>
-        <td th:text="${user.flag}"></td>
-    </tr>
-    </tbody>
-</table>
+
+<form id="listUsers" method="post">
+    <table border="1" cellpadding="8" cellspacing="0">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Flag</th>
+            <th>Send Email</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--/*@thymesVar id="users" type="java.util.List<ru.javaops.masterjava.persist.model.User>"*/-->
+        <tr th:each="user,iter: ${users}">
+            <td th:text="${iter.count}"></td>
+            <td th:text="${user.fullName}"></td>
+            <td th:utext="${user.email}"></td>
+            <td th:text="${user.flag}"></td>
+            <td><input type="checkbox" th:name="${user.email}"/></td>
+        </tr>
+
+        </tbody>
+    </table>
+
+    <hr>
+    <div>
+        <label for="subject" class="control-label col-xs-3">Subject:</label>
+        <input type="text" name="subject" id="subject" value="testSubject" title="Subject">
+        <label for="body" class="control-label col-xs-3">Text:</label>
+        <input type="text" name="body" id="body" value="testBody">
+    </div>
+    <button type="submit">Send</button>
+</form>
 </body>
 </html>

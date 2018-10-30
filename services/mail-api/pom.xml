@@ -23,4 +23,12 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <resources>
+            <resource>
+                <directory>c:\apps\masterjava\config\wsdl</directory>
+            </resource>
+        </resources>
+    </build>
+
 </project>
