@@ -11,53 +11,97 @@
 </script>
 <body>
 <section>
-    <table border="1" cellpadding="8" cellspacing="0">
-        <thead>
-        <tr>
-            <th>#</th>
-            <th>Full Name</th>
-            <th>Email</th>
-            <th>Flag</th>
-            <th/>
-        </tr>
-        </thead>
-        <tbody>
-        <!--/*@thymesVar id="users" type="java.util.List<ru.javaops.masterjava.persist.model.User>"*/-->
-        <tr th:each="user,iter: ${users}">
-            <td th:text="${iter.count}"></td>
-            <td th:text="${user.fullName}"></td>
-            <td th:utext="${user.email}"></td>
-            <td th:text="${user.flag}"></td>
-            <td><input type="checkbox" th:value="|${user.fullName} <${user.email}>|"/></td>
-        </tr>
-        </tbody>
-    </table>
-    <hr/>
-    <p>
-        <input id="subject" placeholder="subject" size="30">
-    </p>
-    <p>
-        <textarea id="body" placeholder="mail body" cols=75 rows=5></textarea><br/>
-    </p>
-    <p>
-        <button type="button" onclick="send()">Send</button>
-    </p>
+    <form id="clientsForm" name="clientsForm" enctype="multipart/form-data" method="post">
+        <table border="1" cellpadding="8" cellspacing="0">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Flag</th>
+                <th/>
+            </tr>
+            </thead>
+            <tbody>
+            <!--/*@thymesVar id="users" type="java.util.List<ru.javaops.masterjava.persist.model.User>"*/-->
+            <tr th:each="user,iter: ${users}">
+                <td th:text="${iter.count}"></td>
+                <td th:text="${user.fullName}"></td>
+                <td th:utext="${user.email}"></td>
+                <td th:text="${user.flag}"></td>
+                <td><input type="checkbox" th:value="|${user.fullName} <${user.email}>|"/></td>
+            </tr>
+            </tbody>
+        </table>
+        <hr/>
+        <p>
+            <input id="subject" placeholder="subject" size="30">
+        </p>
+        <p>
+            <textarea id="body" placeholder="mail body" cols=75 rows=5></textarea><br/>
+        </p>
+        <p>
+            <input type="file" name="fileToUpload" id="fileToUpload" required><br/>
+        </p>
+        <p>
+            <button type="button" onclick="send()">Send</button>
+        </p>
+    </form>
     <pre id="result"></pre>
 </section>
 <script type="text/javascript">
+        function serializefiles(form) {
+            var obj = form;
+            /* ADD FILE TO PARAM AJAX */
+            var formData = new FormData();
+            $.each($(obj).find("input[type='file']"), function(i, tag) {
+                $.each($(tag)[0].files, function(i, file) {
+                    formData.append(tag.name, file);
+                });
+            });
+            var params = $(obj).serializeArray();
+            $.each(params, function (i, val) {
+                formData.append(val.name, val.value);
+            });
+            return formData;
+        };
+
     function send() {
         $('#result').html("Sending ...");
         var users = $("input:checkbox:checked").map(function () {
             return this.value;
         }).get();
+
+        var obj = $(this);
+        /* ADD FILE TO PARAM AJAX */
+        var formData = serializefiles($('#clientsForm'));
+        formData.append("users", users);
+        formData.append("subject", $("#subject").val());
+        formData.append("body", $("#body").val());
+
 //        https://stackoverflow.com/a/22213543/548473
-        $.post("send", "users=" + users + "&subject=" + $("#subject").val() + "&body=" + $("#body").val())
-            .done(function (result) {
-                $('#result').html(result);
-            })
-            .fail(function (result) {
-                $('#result').html(result);
-            });
+        /*        $.post("send", "users=" + users + "&subject=" + $("#subject").val() + "&body=" + $("#body").val())
+                    .done(function (result) {
+                        $('#result').html(result);
+                    })
+                    .fail(function (result) {
+                        $('#result').html(result);
+                    });*/
+
+        $.ajax({
+                url: "send",
+                type: 'POST',
+                contentType: false,
+                processData: false,
+                data: formData,
+                done: (function (result) {
+                    $('#result').html(result);
+                }),
+                fail: (function (result) {
+                    $('#result').html(result);
+                })
+            }
+        )
     }
 </script>
 </body>

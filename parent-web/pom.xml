@@ -46,7 +46,7 @@
                 <version>1.6.5</version>
                 <configuration>
                     <container>
-                        <containerId>tomcat8x</containerId>
+                        <containerId>tomcat9x</containerId>
                         <systemProperties>
                             <file.encoding>UTF-8</file.encoding>
                         </systemProperties>

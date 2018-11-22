@@ -22,4 +22,47 @@
         <module>web</module>
         <module>services</module>
     </modules>
+
+    <dependencies>
+        <!-- config -->
+        <dependency>
+            <groupId>com.typesafe</groupId>
+            <artifactId>config</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+    </dependencies>
+<!--    <scm>
+        <connection>scm:git:https://github.com/StaVK/masterjava.git</connection>
+        <developerConnection>scm:git:https://github.com/StaVK/masterjava.git</developerConnection>
+        <tag>HEAD</tag>
+        <url>https://github.com/StaVK/masterjava.git</url>
+    </scm>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+                <version>1.4</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>create</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <doCheck>false</doCheck>
+                    <doUpdate>false</doUpdate>
+                </configuration>
+            </plugin>
+        </plugins>
+        <resources>
+            <resource>
+                <directory>c:/apps/masterjava/config/</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>-->
 </project>
