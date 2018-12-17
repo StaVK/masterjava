@@ -16,6 +16,8 @@
     <packaging>war</packaging>
     <name>Mail Service</name>
 
+
+
     <build>
         <finalName>mail</finalName>
         <plugins>

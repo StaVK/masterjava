@@ -21,5 +21,6 @@ public class MailServicePublisher {
 
         endpoint.setMetadata(metadata);
         endpoint.publish("http://localhost:8080/mail/mailService");
+
     }
 }

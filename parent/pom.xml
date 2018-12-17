@@ -19,7 +19,7 @@
         <slf4j.version>1.7.25</slf4j.version>
 
         <!-- Can be overriten in ${MAVEN_HOME}\conf\settings.xml-->
-        <masterjava.config>/apps/masterjava/config/</masterjava.config>
+        <masterjava.config>c:/apps/masterjava/config/</masterjava.config>
         <dependency.locations.enabled>false</dependency.locations.enabled>
     </properties>
 
@@ -108,6 +108,8 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
+
+
     </dependencies>
 
     <profiles>
@@ -116,11 +118,18 @@
     <dependencyManagement>
     </dependencyManagement>
 
-    <scm>
+<!--    <scm>
         <connection>scm:git:https://github.com/JavaWebinar/masterjava.git</connection>
         <developerConnection>scm:git:https://github.com/JavaWebinar/masterjava.git</developerConnection>
         <tag>HEAD</tag>
         <url>https://github.com/vitchurb/masterjava.git</url>
+    </scm>-->
+
+    <scm>
+        <connection>scm:git:https://github.com/StaVK/masterjava.git</connection>
+        <developerConnection>scm:git:https://github.com/StaVK/masterjava.git</developerConnection>
+        <tag>HEAD</tag>
+        <url>https://github.com/StaVK/masterjava.git</url>
     </scm>
 
 </project>

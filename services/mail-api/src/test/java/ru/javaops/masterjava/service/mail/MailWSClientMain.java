@@ -13,8 +13,8 @@ import java.net.MalformedURLException;
 public class MailWSClientMain {
     public static void main(String[] args) throws WebStateException, MalformedURLException {
         String state = MailWSClient.sendToGroup(
-                ImmutableSet.of(new Addressee("To <masterjava@javaops.ru>")),
-                ImmutableSet.of(new Addressee("Copy <masterjava@javaops.ru>")), "Subject", "Body",
+                ImmutableSet.of(new Addressee("To <kimask@tut.by>")),
+                ImmutableSet.of(new Addressee("Copy <kimask@tut.by>")), "Subject", "Body",
                 ImmutableList.of(new Attachment("version.html",
                         new DataHandler(new File("config_templates/version.html").toURI().toURL()))
                 ));
