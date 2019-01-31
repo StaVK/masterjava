@@ -22,4 +22,9 @@
     <security-role>
         <role-name>tomcat</role-name>
     </security-role>
+
+<context-param>
+    <param-name>jersey.config.server.provider.classnames</param-name>
+    <param-value>org.glassfish.jersey.media.multipart.MultiPartFeature</param-value>
+</context-param>
 </web-app>

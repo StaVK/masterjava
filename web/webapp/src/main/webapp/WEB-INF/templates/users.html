@@ -34,10 +34,10 @@
     </table>
     <hr/>
     <p>
-        <input id="subject" placeholder="subject" size="30">
+        <input id="subject" placeholder="subject" size="30" value="testSubject">
     </p>
     <p>
-        <textarea id="body" placeholder="mail body" cols=75 rows=5></textarea><br/>
+        <textarea id="body" placeholder="mail body" cols=75 rows=5>Body text</textarea><br/>
     </p>
     <p>
         <input id="attach" type="file">
@@ -86,10 +86,21 @@
                 processData: false
             };
         } else if (transport === "REST" || transport === "JMS") {
+
+            var data = new FormData();
+            data.append('users', users);
+            data.append('subject', $("#subject").val());
+            data.append('body', $("#body").val());
+            var attach = $('#attach')[0].files[0];
+            if (attach) data.append('attach', attach);
+
             param = {
                 url: (transport === "REST" ? "/mail/rest/send" : "sendJms"),
-                data: "users=" + users + "&subject=" + $("#subject").val() + "&body=" + $("#body").val(),
-                contentType: "application/x-www-form-urlencoded"
+                // data: "users=" + users + "&subject=" + $("#subject").val() + "&body=" + $("#body").val(),
+                data: data,
+                // contentType: "multipart/form-data",
+                contentType: false,
+                processData: false
             };
         }
 
