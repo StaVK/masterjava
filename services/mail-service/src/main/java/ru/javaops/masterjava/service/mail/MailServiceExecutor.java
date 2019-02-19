@@ -1,10 +1,14 @@
 package ru.javaops.masterjava.service.mail;
 
+import akka.dispatch.Futures;
 import lombok.extern.slf4j.Slf4j;
 import one.util.streamex.StreamEx;
 import ru.javaops.masterjava.ExceptionType;
+import ru.javaops.masterjava.service.mail.util.MailUtils;
+import ru.javaops.masterjava.service.mail.util.MailUtils.MailObject;
 import ru.javaops.masterjava.web.WebStateException;
 import ru.javaops.masterjava.web.WsClient;
+import scala.concurrent.ExecutionContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +22,11 @@ public class MailServiceExecutor {
     private static final String INTERRUPTED_BY_TIMEOUT = "+++ Interrupted by timeout";
 
     private static final ExecutorService mailExecutor = Executors.newFixedThreadPool(8);
+
+    public static GroupResult sendBulk(final MailObject mailObject) throws WebStateException {
+        return sendBulk(MailUtils.split(mailObject.getUsers()),
+                mailObject.getSubject(), mailObject.getBody(), MailUtils.getAttachments(mailObject.getAttachments()));
+    }
 
     public static GroupResult sendBulk(final Set<Addressee> addressees, final String subject, final String body, List<Attachment> attachments) throws WebStateException {
         final CompletionService<MailResult> completionService = new ExecutorCompletionService<>(mailExecutor);
@@ -68,5 +77,24 @@ public class MailServiceExecutor {
                 }
             }
         }.call();
+    }
+
+    public static scala.concurrent.Future<GroupResult> sendAsyncWithReply(MailObject mailObject, ExecutionContext ec) {
+        // http://doc.akka.io/docs/akka/current/java/futures.html
+        return Futures.future(() -> sendBulk(mailObject), ec);
+    }
+
+    public static void sendAsync(MailObject mailObject) {
+        Set<Addressee> addressees = MailUtils.split(mailObject.getUsers());
+        addressees.forEach(addressee ->
+                mailExecutor.submit(() -> {
+                    try {
+                        MailSender.sendTo(addressee, mailObject.getSubject(), mailObject.getBody(),
+                                MailUtils.getAttachments(mailObject.getAttachments()));
+                    } catch (WebStateException e) {
+                        // already logged
+                    }
+                })
+        );
     }
 }
