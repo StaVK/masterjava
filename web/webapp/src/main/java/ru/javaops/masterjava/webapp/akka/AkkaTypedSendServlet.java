@@ -7,6 +7,7 @@ import ru.javaops.masterjava.service.mail.util.MailUtils.MailObject;
 import scala.concurrent.Await;
 import scala.concurrent.duration.Duration;
 
+import javax.servlet.AsyncContext;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.concurrent.Callable;
 
 import static ru.javaops.masterjava.webapp.WebUtil.createMailObject;
 import static ru.javaops.masterjava.webapp.WebUtil.doAndWriteResponse;
@@ -36,13 +38,31 @@ public class AkkaTypedSendServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         req.setCharacterEncoding("UTF-8");
-        doAndWriteResponse(resp, () -> sendAkka(createMailObject(req)));
+
+        AsyncContext asyncContext = req.startAsync();
+        asyncContext.setTimeout(0);
+
+        asyncContext.start(() -> {
+            try {
+                doAndWriteResponse(resp, () -> sendAkka(createMailObject(req)));
+                asyncContext.complete();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+
+
+//        doAndWriteResponse(resp, () -> sendAkka(createMailObject(req),asyncContext));
     }
 
     private String sendAkka(MailObject mailObject) throws Exception {
         scala.concurrent.Future<GroupResult> future = mailService.sendBulk(mailObject);
         log.info("Receive future, waiting result ...");
+
         GroupResult groupResult = Await.result(future, Duration.create(10, "seconds"));
+
+
         return groupResult.toString();
     }
 }
